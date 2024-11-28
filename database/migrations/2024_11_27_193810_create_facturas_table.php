@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->decimal('numero', 10, 0)->unique();
             $table->timestamps();
-            $table->foreignId('usuario');
         });
     }
 
