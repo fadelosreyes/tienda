@@ -13,8 +13,11 @@ class ArticuloController extends Controller
      */
     public function index()
     {
+        // Ordenar por 'codigo' de forma ascendente
+        $articulos = Articulo::orderBy('codigo', 'asc')->get();
+
         return view('articulos.index', [
-            'articulos'  => Articulo::all(),
+            'articulos'  => $articulos,
         ]);
     }
 
@@ -70,7 +73,7 @@ class ArticuloController extends Controller
             'codigo' => [
                 'required',
                 'max:2',
-                Rule::unique('articulos')->ignore($articulo),
+                Rule::unique('articulos')->ignore($articulo->id),
             ],
             'denominacion' => 'required|string|max:255',
             'precio' => 'required|decimal:2',

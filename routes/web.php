@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('articulos', ArticuloController::class);
 Route::resource('facturas', FacturaController::class);
+Route::post('/facturas/{factura}/add-articulo', [FacturaController::class, 'addArticulo'])->name('facturas.addArticulo');
+Route::get('/facturas/{factura}/articulos', [FacturaController::class, 'showArticulos'])->name('facturas.showArticulos');
 
 
 require __DIR__.'/auth.php';
