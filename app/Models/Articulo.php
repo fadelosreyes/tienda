@@ -14,6 +14,7 @@ class Articulo extends Model
 
     public function facturas()
     {
-        return $this->belongsToMany(Factura::class, 'articulo_factura', 'articulo_id', 'factura_id');
+        return $this->belongsToMany(Factura::class)
+            ->withPivot('cantidad');
     }
 }

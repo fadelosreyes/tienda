@@ -40,7 +40,7 @@
                                         {{ $factura->user->name }}
                                     </td>
                                     <td class="px-6 py-4 flex items-center">
-                                        <a href="{{ route('facturas.showArticulos', $factura) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                                        <a href="{{ route('facturas.show', $factura) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
                                         <form method="POST" action="{{ route('facturas.destroy', $factura) }}">
                                             @method('DELETE')
                                             @csrf

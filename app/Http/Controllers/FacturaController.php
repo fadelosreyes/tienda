@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Articulo;
 use App\Models\Factura;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;  // Para obtener el usuario autenticado
-use App\Models\Articulo;
+use Illuminate\Support\Facades\Auth;
 
 class FacturaController extends Controller
 {
@@ -24,7 +24,7 @@ class FacturaController extends Controller
      */
     public function create()
     {
-        return view('facturas.create');
+        //
     }
 
     /**
@@ -60,9 +60,7 @@ class FacturaController extends Controller
      */
     public function edit(Factura $factura)
     {
-        return view('facturas.edit', [
-            'factura'  => $factura
-        ]);
+        //
     }
 
     /**
@@ -82,23 +80,11 @@ class FacturaController extends Controller
         return redirect()->route('facturas.index');
     }
 
-    public function addArticulo(Request $request, Factura $factura)
+    public function realizarCompra(Request $request)
     {
-        $articuloId = $request->input('articulo_id');
+        // Obtener el número de factura
+        $numeroFactura = $request->input('numero_factura');
 
-        // Asociar el artículo a la factura (muchos a muchos)
-        $factura->articulos()->attach($articuloId);
-
-        return redirect()->route('facturas.show', $factura)->with('success', 'Artículo añadido correctamente.');
-    }
-
-    public function showArticulos(Factura $factura)
-    {
-        // Cargar los artículos asociados a la factura
-        $factura->load('articulos');
-
-        return view('facturas.show_articulos', [
-            'factura' => $factura,
-        ]);
+        return redirect()->route('#');
     }
 }

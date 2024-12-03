@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Generico\Carrito;
 use App\Models\Articulo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,8 @@ class ArticuloController extends Controller
         $articulos = Articulo::orderBy('codigo', 'asc')->get();
 
         return view('articulos.index', [
-            'articulos'  => $articulos,
+            'articulos' => Articulo::all(),
+            'carrito' => Carrito::carrito()
         ]);
     }
 

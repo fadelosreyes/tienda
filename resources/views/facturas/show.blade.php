@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Ver factura
+            Ver Factura con Artículos
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex flex-col py-3">
                             <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Fecha</dt>
-                            <dd class="text-lg font-semibold">{{ $factura->created_at }}</dd>
+                            <dd class="text-lg font-semibold">{{ $factura->created_at->format('d/m/Y') }}</dd>
                         </div>
                         <div class="flex flex-col pt-3">
                             <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Usuario</dt>
@@ -24,41 +24,29 @@
                         </div>
                     </dl>
 
-                    <!-- Tabla de artículos -->
-
-                    </div>
-
+                    <!-- Tabla de artículos asociados a la factura -->
                 </div>
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-4">Artículos disponibles</h3>
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">Nombre</th>
-                                    <th scope="col" class="px-6 py-3">Precio</th>
-                                    <th scope="col" class="px-6 py-3">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($articulos as $articulo)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ $articulo->denominacion }}</td>
-                                    <td class="px-6 py-4">{{ $articulo->precio }}</td>
-                                    <td class="px-6 py-4">
-                                        <form method="POST" action="{{ route('facturas.addArticulo', $factura) }}">
-                                            @csrf
-                                            <input type="hidden" name="articulo_id" value="{{ $articulo->id }}">
-                                            <button type="submit" class="text-white bg-blue-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
-                                                Añadir
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold mb-4">Artículos en esta factura</h3>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Nombre</th>
+                                <th scope="col" class="px-6 py-3">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($factura->articulos as $articulo)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ $articulo->denominacion }}</td>
+                                <td class="px-6 py-4">{{ $articulo->precio }}€</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
